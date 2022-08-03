@@ -1,21 +1,36 @@
-Example Project
-===============
-This is an example project that is used to demonstrate how to publish
-Python packages on PyPI. To take a look at the step by step guide on how to 
-do so, make sure you read `my article on Towards Data Science <https://towardsdatascience.com/how-to-upload-your-python-package-to-pypi-de1b363a1b3>`_.
+# EmotionExtractor
+Extract emotion words from sentence or list of tokens.
 
-Installing
-============
+# Usage
+```python
+ee = EmotionExtractor()
 
-.. code-block:: bash
+sentence = "I am happy to see you succeed"
+tokens = ["I", "am", "happy", "to", "see", "you", "succeed"]
 
-    pip install example-publish-pypi-medium
+ee.extract_emotion(sentence)
+#or 
+ee.extract_emotion(tokens)
+```
 
-Usage
-=====
+`extract_emotion(...)` can take several other optional parameters in addition to input sentence/word tokens:
 
-.. code-block:: bash
+```
+:param bool lemmatize: Set to True to enable lemmatization. default is False
+:param bool clean_stopwords: Set to False to disable stop words removal. default is True
+:param bool remove_pos: Set to True if you'd like to only allow certain Parts of speech (POS). default s false
+:param list allowed_pos: List of POS you want to allow from nltk TAGSET: https://github.com/nltk/nltk/blob/develop/nltk/app/chunkparser_app.py
+a more readable list from third party: https://www.guru99.com/pos-tagging-chunking-nltk.html When it is not set, and remove_pos is set to True, then by default this POS whitelist is used: ["RB", "RBS", "RBR", "JJ", "JJR", "JJS"]
+:param str filter: It can be set to either 'N' or 'P'. default is None.
+```
 
-    >>> from src.example import custom_sklearn
-    >>> custom_sklearn.get_sklearn_version()
-    '0.24.2'
+
+# Troubleshooting:
+If you recieve error regarding `nltk version not found` try:
+
+```bash
+pip install --upgrade nltk
+```
+
+
+
