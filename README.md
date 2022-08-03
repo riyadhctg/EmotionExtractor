@@ -1,7 +1,12 @@
 # EmotionExtractor
 Extract emotion words from sentence or list of tokens.
 
-# Usage
+## Installation
+```
+pip install EmotionExtractor
+```
+
+## Usage
 ```python
 ee = EmotionExtractor()
 
@@ -25,7 +30,7 @@ a more readable list from third party: https://www.guru99.com/pos-tagging-chunki
 ```
 
 
-# Troubleshooting:
+## Troubleshooting:
 If you recieve error regarding `nltk version not found` try:
 
 ```bash
