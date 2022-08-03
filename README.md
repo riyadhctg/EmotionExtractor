@@ -1,8 +1,6 @@
 # EmotionExtractor
 Extract emotion words from sentence or list of tokens.
 
-!\[my badge\](https://badgen.net/badge/hello/world/red?icon=twitter)
-
 ## Installation
 ```
 pip install EmotionExtractor
