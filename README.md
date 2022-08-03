@@ -16,6 +16,9 @@ tokens = ["I", "am", "happy", "to", "see", "you", "succeed"]
 ee.extract_emotion(sentence)
 #or 
 ee.extract_emotion(tokens)
+
+#output
+# ['happy', 'succeed']
 ```
 
 `extract_emotion(...)` can take several other optional parameters in addition to input sentence/word tokens:
