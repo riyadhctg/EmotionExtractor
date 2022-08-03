@@ -33,7 +33,7 @@ a more readable list from third party: https://www.guru99.com/pos-tagging-chunki
 ```
 
 
-## Troubleshooting:
+## Troubleshooting
 If you recieve error regarding `nltk version not found` try:
 
 ```bash
@@ -41,4 +41,5 @@ pip install --upgrade nltk
 ```
 
 
-
+## Additional Note
+More info will be shared soon about the lexicon used 
