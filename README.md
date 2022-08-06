@@ -8,6 +8,8 @@ pip install EmotionExtractor
 
 ## Usage
 ```python
+from emotionextractor.emotionextractor import EmotionExtractor
+
 ee = EmotionExtractor()
 
 sentence = "I am happy to see you succeed"
