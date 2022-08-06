@@ -21,6 +21,14 @@ class EmotionExtractor:
         except Exception as e:
           self.logger.error('failed to read emo_extract_lex file: %s', e)
           raise Exception(e)
+
+        try:
+          file_strict = os.path.join(os.path.dirname(__file__), "data/data_strict.pkl")
+          with open(file_strict, "rb") as f:
+              self.emo_extract_lex_strict = pickle.load(f)
+        except Exception as e:
+          self.logger.error('failed to read emo_extract_lex_strict file: %s', e)
+          raise Exception(e)
           
 
     def tokenizer(self, sentence):
@@ -98,29 +106,39 @@ class EmotionExtractor:
         return filtered
 
     
-    def extract_emo_words(self, tokens):
+    def extract_emo_words(self, tokens, strict_mode=True):
         """
         extracts emotion words from tokens
         """
+        lex = self.emo_extract_lex_strict
+        if strict_mode is False:
+            self.logger.info("using large and less strict lexicon")
+            lex = self.emo_extract_lex
+
         emo_words = []
         for token in tokens:
-            if token in self.emo_extract_lex:
+            if token in lex:
                 emo_words.append(token)
 
         self.logger.info("extract_emo_words: %s", emo_words)
         return emo_words
 
     
-    def extract_emo_words_by_filter(self, tokens, filter):
+    def extract_emo_words_by_filter(self, tokens, filter, strict_mode=True):
         """
         extract negative emotion words from tokens
         """
+        lex = self.emo_extract_lex_strict
+        if strict_mode is False:
+            self.logger.info("using large and less strict lexicon")
+            lex = self.emo_extract_lex
+        
         if filter != 'N' and filter != 'P':
           raise Exception('Only N and P are allowed as filter')
         
         emo_words = []
         for token in tokens:
-            if token in self.emo_extract_lex and self.emo_extract_lex[token] == filter:
+            if token in lex and lex[token] == filter:
                 emo_words.append(token)
 
         self.logger.info("extract_emo_words_by_filter: %s", emo_words)
@@ -152,6 +170,7 @@ class EmotionExtractor:
     def extract_emotion(
         self,
         s,
+        strict_mode=True,
         lemmatize=False,
         clean_stopwords=True,
         remove_pos=False,
@@ -164,6 +183,7 @@ class EmotionExtractor:
         
         :param str|list s: input sentence or list of word tokens
         :param bool lemmatize: Set to True to enable lemmatization. default is False
+        :param bool strict_mode: Set to True to enable strict choice of emotion words based on adj and adv. default is True
         :param bool clean_stopwords: Set to False to disable stop words removal. default is True
         :param bool remove_pos: Set to True if you'd like to only allow certain Parts of speech (POS). default s false
         :param list allowed_pos: List of POS you want to allow from nltk TAGSET: https://github.com/nltk/nltk/blob/develop/nltk/app/chunkparser_app.py
@@ -192,9 +212,9 @@ class EmotionExtractor:
             t, lemma_dct = self.lemmatize_tokens(t)
 
         if emotion_filter is not None:
-            t = self.extract_emo_words_by_filter(t, emotion_filter)
+            t = self.extract_emo_words_by_filter(t, emotion_filter, strict_mode=strict_mode)
         else:
-            t = self.extract_emo_words(t)
+            t = self.extract_emo_words(t, strict_mode=strict_mode)
 
         if lemmatize:
             unlemmatized = []

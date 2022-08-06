@@ -28,6 +28,7 @@ ee.extract_emotion(tokens)
 ```
 :param bool lemmatize: Set to True to enable lemmatization. default is False
 :param bool clean_stopwords: Set to False to disable stop words removal. default is True
+:param bool strict_mode: Set to True to enable strict choice of emotion words based on adj and adv. default is True
 :param bool remove_pos: Set to True if you'd like to only allow certain Parts of speech (POS). default s false
 :param list allowed_pos: List of POS you want to allow from nltk TAGSET: https://github.com/nltk/nltk/blob/develop/nltk/app/chunkparser_app.py
 a more readable list from third party: https://www.guru99.com/pos-tagging-chunking-nltk.html When it is not set, and remove_pos is set to True, then by default this POS whitelist is used: ["RB", "RBS", "RBR", "JJ", "JJR", "JJS"]
