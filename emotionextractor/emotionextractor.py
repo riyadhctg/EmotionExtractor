@@ -10,9 +10,9 @@ class EmotionExtractor:
         self.emo_extract_lex = None
         import os
         
-        logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(level=logging.DEBUG)
+        self.logger.setLevel(level=logging.INFO)
 
         try:
           file = os.path.join(os.path.dirname(__file__), "data/data.pkl")
